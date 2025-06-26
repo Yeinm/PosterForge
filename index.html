@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>科学论文海报自动化工具</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4A6FE3;
+            --secondary: #2D4DB2;
+            --accent: #F5A742;
+            --background: #F9FBFF;
+            --text: #333;
+            --text-light: #666;
+            --shadow: rgba(0, 0, 0, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background-color: var(--background);
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 80px 0 40px;
+            text-align: center;
+        }
+        
+        .logo {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .tagline {
+            font-size: 24px;
+            font-weight: 300;
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--accent);
+            color: white;
+            padding: 12px 28px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 500;
+            margin: 15px 10px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 10px var(--shadow);
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px var(--shadow);
+        }
+        
+        .header-img {
+            max-width: 90%;
+            margin: 30px auto 0;
+            display: block;
+            border-radius: 8px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        section {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 60px;
+            color: var(--primary);
+        }
+        
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+        }
+        
+        .feature-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 5px 20px var(--shadow);
+            flex: 1 1 300px;
+            max-width: 350px;
+            transition: transform 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .feature-icon {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: var(--accent);
+        }
+        
+        .feature-title {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+        
+        .workflow {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px var(--shadow);
+            padding: 40px;
+            margin-bottom: 50px;
+        }
+        
+        .workflow-img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px var(--shadow);
+        }
+        
+        .workflow-steps {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .step {
+            flex: 1;
+            min-width: 220px;
+            position: relative;
+        }
+        
+        .step-number {
+            display: inline-block;
+            width: 36px;
+            height: 36px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 36px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        .installation {
+            background-color: #f5f7fa;
+        }
+        
+        .code-block {
+            background-color: #282c34;
+            color: #abb2bf;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 20px 0;
+            font-family: monospace;
+        }
+        
+        .cta {
+            text-align: center;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+        }
+        
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+        }
+        
+        @media (max-width: 768px) {
+            .feature-card {
+                flex: 1 1 100%;
+                max-width: 100%;
+            }
+            
+            .step {
+                flex: 1 1 100%;
+            }
+            
+            .header-img {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">🎓 论文海报生成工具</div>
+            <p class="tagline">科学论文海报自动化工具 - 从论文到精美海报的一键转换</p>
+            <a href="https://github.com/yourusername/论文海报生成工具" class="btn">GitHub 仓库</a>
+            <a href="#installation" class="btn">快速开始</a>
+            <img src="./assets/overall.png" alt="论文海报生成工具概述" class="header-img">
+        </div>
+    </header>
+    
+    <section class="overview">
+        <div class="container">
+            <h2 class="section-title">项目介绍</h2>
+            <div class="workflow">
+                <p>
+                    这是一个创新的多模态工具，能够自动将科学论文转换为高质量的学术海报。
+                    通过先进的人工智能技术，本项目解决了从论文PDF到可编辑PPTX海报的全流程自动化问题，大大提高了学术工作者的效率。
+                </p>
+                <img src="./assets/posteragent.png" alt="工作流程" class="workflow-img">
+                <p>
+                    该工具是一种自顶向下、视觉反馈闭环的多智能体系统，能够实现从<code>paper.pdf</code>到可编辑<code>poster.pptx</code>的全流程转换。
+                </p>
+            </div>
+        </div>
+    </section>
+    
+    <section class="features-section">
+        <div class="container">
+            <h2 class="section-title">功能特点</h2>
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">🔄</div>
+                    <h3 class="feature-title">全自动处理</h3>
+                    <p>从PDF论文直接生成结构清晰的学术海报，无需手动排版</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📝</div>
+                    <h3 class="feature-title">可编辑输出</h3>
+                    <p>生成的海报为PPTX格式，方便进一步编辑和定制</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3 class="feature-title">智能布局</h3>
+                    <p>自动规划文本和图形的最佳布局，保持阅读顺序和空间平衡</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🧠</div>
+                    <h3 class="feature-title">多种模型支持</h3>
+                    <p>支持GPT-4o和开源模型如Qwen-2.5-7B-Instruct的灵活组合</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔍</div>
+                    <h3 class="feature-title">自动排版优化</h3>
+                    <p>自动检测并修复溢出和对齐问题，确保排版美观</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📏</div>
+                    <h3 class="feature-title">全面评估系统</h3>
+                    <p>包含多种评估指标，确保海报质量符合学术标准</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="workflow-section">
+        <div class="container">
+            <h2 class="section-title">工作流程</h2>
+            <div class="workflow">
+                <div class="workflow-steps">
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        <h3>解析论文</h3>
+                        <p>从论文PDF中提取文本、图片、表格等内容，构建结构化资源库</p>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        <h3>规划布局</h3>
+                        <p>将文本-图像对组织成二叉树布局，保持阅读顺序和空间平衡</p>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        <h3>生成内容</h3>
+                        <p>根据布局生成海报内容，优化每个面板的表达</p>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        <h3>视觉优化</h3>
+                        <p>执行渲染代码并使用视觉模型反馈消除溢出并确保对齐</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="installation" id="installation">
+        <div class="container">
+            <h2 class="section-title">安装指南</h2>
+            <div class="workflow">
+                <p>本项目支持本地部署（通过<a href="https://docs.vllm.ai/en/v0.6.6/getting_started/installation.html">vLLM</a>）或API访问（如GPT-4o）。</p>
+                
+                <h3>Python环境</h3>
+                <div class="code-block">
+                    pip install -r requirements.txt
+                </div>
+                
+                <h3>安装LibreOffice</h3>
+                <div class="code-block">
+                    sudo apt install libreoffice
+                </div>
+                <p>如果没有sudo权限，可以直接下载<code>soffice</code>可执行文件：<a href="https://www.libreoffice.org/download/download-libreoffice/">https://www.libreoffice.org/download/download-libreoffice/</a>，并将可执行目录添加到<code>$PATH</code>。</p>
+                
+                <h3>安装poppler</h3>
+                <div class="code-block">
+                    conda install -c conda-forge poppler
+                </div>
+                
+                <h3>API密钥</h3>
+                <p>在项目根目录创建<code>.env</code>文件并添加OpenAI API密钥：</p>
+                <div class="code-block">
+                    OPENAI_API_KEY=&lt;你的_openai_api_密钥&gt;
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="quickstart">
+        <div class="container">
+            <h2 class="section-title">快速开始</h2>
+            <div class="workflow">
+                <p>在<code>{dataset_dir}</code>下创建名为<code>{paper_name}</code>的文件夹，并将论文PDF文件放入该文件夹并命名为<code>paper.pdf</code>。</p>
+                <div class="code-block">
+                    📁 {dataset_dir}/<br>
+                    └── 📁 {paper_name}/<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;└── 📄 paper.pdf
+                </div>
+                
+                <h3>高性能模式</h3>
+                <p>使用<code>GPT-4o</code>生成海报：</p>
+                <div class="code-block">
+                    python -m 海报生成.new_pipeline \<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;--poster_path="${dataset_dir}/${paper_name}/paper.pdf" \<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;--model_name_t="4o" \  # 语言模型<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;--model_name_v="4o" \  # 视觉模型<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;--poster_width_inches=48 \<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;--poster_height_inches=36
+                </div>
+                
+                <h3>经济实惠模式</h3>
+                <p>使用<code>Qwen-2.5-7B-Instruct</code>和<code>GPT-4o</code>生成海报：</p>
+                <div class="code-block">
+                    python -m 海报生成.new_pipeline \<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;--poster_path="${dataset_dir}/${paper_name}/paper.pdf" \<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;--model_name_t="vllm_qwen" \  # 语言模型<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;--model_name_v="4o" \         # 视觉模型<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;--poster_width_inches=48 \<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;--poster_height_inches=36 \<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;--no_blank_detection          # 禁用空白检测的选项
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="cta">
+        <div class="container">
+            <h2 class="section-title">开始使用论文海报生成工具</h2>
+            <p>从繁琐的海报制作中解放出来，专注于您的研究成果</p>
+            <a href="#installation" class="btn">立即开始</a>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 科学论文海报自动化工具</p>
+        </div>
+    </footer>
+</body>
+</html> 
